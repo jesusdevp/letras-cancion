@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-const Formulario = ({ guardarBusquedaLetra }) => {
+const Formulario = ({ guardarBusquedaLetra, guardarCargando }) => {
   const [busqueda, guardarBusqueda] = useState({
     artista: "",
     cancion: "",
@@ -21,6 +22,8 @@ const Formulario = ({ guardarBusquedaLetra }) => {
   //consultar las apis
   const buscarInformacion = (e) => {
     e.preventDefault();
+
+    guardarCargando(true);
 
     if (artista.trim() === "" || cancion.trim() === "") {
       guardarError(true);
@@ -63,12 +66,12 @@ const Formulario = ({ guardarBusquedaLetra }) => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-gruop">
-                    <label>Cancion</label>
+                    <label>Canción</label>
                     <input
                       type="text"
                       className="form-control"
                       name="cancion"
-                      placeholder="Nombre Cancion"
+                      placeholder="Nombre Canción"
                       onChange={actualizarState}
                       value={cancion}
                     />
@@ -87,6 +90,10 @@ const Formulario = ({ guardarBusquedaLetra }) => {
       </div>
     </div>
   );
+};
+
+Formulario.propTypes = {
+  guardarBusquedaLetra: PropTypes.func.isRequired,
 };
 
 export default Formulario;
